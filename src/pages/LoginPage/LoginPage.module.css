@@ -1,0 +1,21 @@
+*{
+    font-family: Arial, Helvetica, sans-serif;
+    color: rgb(63, 61, 112);
+    border-color: rgb(73, 68, 156);
+    user-select: none;
+}
+
+.loginContainer{
+    height: 100vh;
+    text-align: center;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.login{
+    margin: auto;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+}
