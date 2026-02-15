@@ -1,5 +1,13 @@
 //import React, { useState } from "react";
-import { Button, Input, message, Form, Checkbox, Flex } from "antd";
+import {
+  Button,
+  Input,
+  message,
+  Form,
+  Checkbox,
+  Flex,
+  ConfigProvider,
+} from "antd";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import styles from "../LoginPage.module.css";
@@ -26,58 +34,71 @@ export const LoginPage = () => {
 
   return (
     <div className={styles.loginContainer}>
-      <Form<FieldType>
-        name="login"
-        initialValues={{ remember: true }}
-        className={styles.login}
-        onFinish={onFinish}
+      <ConfigProvider
+        theme={{
+          token: {
+            colorPrimary: "#5c9475",
+            colorText: "#5c9475",
+          },
+        }}
       >
-        <h1>Авторизация</h1>
-        <Form.Item<FieldType>
-          name="email"
-          rules={[
-            { required: true, type: "email", message: "Неверная почта!" },
-          ]}
+        <Form<FieldType>
+          name="login"
+          initialValues={{ remember: true }}
+          className={styles.login}
+          onFinish={onFinish}
         >
-          <Input prefix={<UserOutlined />} placeholder="Почта" />
-        </Form.Item>
-
-        <Form.Item<FieldType>
-          name="password"
-          rules={[{ required: true, message: "Введите пароль!" }]}
-        >
-          <Input
-            prefix={<LockOutlined />}
-            type="password"
-            placeholder="Пароль"
-          />
-        </Form.Item>
-
-        <Form.Item>
-          <Flex justify="space-between" align="center">
-            <Form.Item<FieldType>
-              name="remember"
-              valuePropName="checked"
-              noStyle
-            >
-              <Checkbox>Запомнить меня</Checkbox>
-            </Form.Item>
-            <a href="">Забыли пароль?</a>
-          </Flex>
-        </Form.Item>
-
-        <Form.Item>
-          <Button
-            block
-            type="primary"
-            style={{ marginBottom: 8 }}
-            htmlType="submit"
+          <h1>Авторизация</h1>
+          <Form.Item<FieldType>
+            name="email"
+            rules={[
+              { required: true, type: "email", message: "Неверная почта!" },
+            ]}
           >
-            Log in
-          </Button>
-          <a href="">Регистрация</a>
-        </Form.Item>
-      </Form>
+            <Input prefix={<UserOutlined />} placeholder="Почта" />
+          </Form.Item>
+
+          <Form.Item<FieldType>
+            name="password"
+            rules={[{ required: true, message: "Введите пароль!" }]}
+          >
+            <Input
+              prefix={<LockOutlined />}
+              type="password"
+              placeholder="Пароль"
+            />
+          </Form.Item>
+
+          <Form.Item>
+            <Flex justify="space-between" align="center">
+              <Form.Item<FieldType>
+                name="remember"
+                valuePropName="checked"
+                noStyle
+              >
+                <Checkbox>Запомнить меня</Checkbox>
+              </Form.Item>
+              <a href="" className={styles.linkText}>
+                Забыли пароль?
+              </a>
+            </Flex>
+          </Form.Item>
+
+          <Form.Item>
+            <Button
+              block
+              type="primary"
+              style={{ marginBottom: 8 }}
+              htmlType="submit"
+            >
+              Log in
+            </Button>
+            <a href="" className={styles.linkText}>
+              Регистрация
+            </a>
+          </Form.Item>
+        </Form>
+      </ConfigProvider>
     </div>
   );
 };
