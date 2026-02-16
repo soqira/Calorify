@@ -78,7 +78,13 @@ export const LoginPage = () => {
               >
                 <Checkbox>Запомнить меня</Checkbox>
               </Form.Item>
-              <a href="" className={styles.linkText}>
+              <a
+                href=""
+                className={styles.linkText}
+                onClick={() => {
+                  navigate("/unknown");
+                }}
+              >
                 Забыли пароль?
               </a>
             </Flex>
@@ -91,9 +97,15 @@ export const LoginPage = () => {
               style={{ marginBottom: 8 }}
               htmlType="submit"
             >
-              Log in
+              Войти
             </Button>
-            <a href="" className={styles.linkText}>
+            <a
+              href=""
+              className={styles.linkText}
+              onClick={() => {
+                navigate("/");
+              }}
+            >
               Регистрация
             </a>
           </Form.Item>

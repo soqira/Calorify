@@ -3,6 +3,10 @@
     color: #254634;
 }
 
+body {
+  margin: 0;
+}
+
 .dashboardTable {
     width: 100%;
 }
@@ -13,10 +17,9 @@
     flex-direction: column;
     justify-content: center; /* Centers horizontally along the main axis */
     align-items: center;     /* Centers vertically along the cross axis */
-    height: 100vh; 
     max-width: 1400px;
     padding: 0 24px;
-
+    height: 100vh;
 }
 
 .dashboardHeaderText{
