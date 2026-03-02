@@ -1,10 +1,13 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, ConfigProvider } from "antd";
 import styles from "../UnknownPage.module.css";
 
 export const UnknownPage = () => {
   const navigate = useNavigate();
+  const handleGoBack = () => {
+    navigate(-1);
+  };
+
   return (
     <div className={styles.unknownContainer}>
       <ConfigProvider
@@ -21,7 +24,7 @@ export const UnknownPage = () => {
           className={styles.button}
           type="primary"
           onClick={() => {
-            navigate("../");
+            handleGoBack();
           }}
         >
           Вернуться

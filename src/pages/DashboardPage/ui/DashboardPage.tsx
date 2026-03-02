@@ -1,14 +1,21 @@
 import React, { useState } from "react";
 import styles from "../DashboardPage.module.css";
-import { Table, ConfigProvider, Button, Space, Modal } from "antd";
+import {
+  Table,
+  ConfigProvider,
+  Button,
+  Space,
+  Modal,
+  type TableProps,
+} from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-
 interface UsersData {
   key: number;
   name: string;
   age: number;
   email: string;
 }
+
 export const DashboardPage: React.FC = () => {
   const columns: TableProps<UsersData>["columns"] = [
     {
@@ -46,7 +53,7 @@ export const DashboardPage: React.FC = () => {
     },
   ];
 
-  const users: UsersData[] = [
+  const TABLE_USERS: UsersData[] = [
     { key: 1, name: "John Brown", age: 23, email: "jhonsonBrown@gmail.com" },
     { key: 2, name: "Alice White", age: 42, email: "iamalivce@gmail.com" },
     { key: 3, name: "Jane Remover", age: 21, email: "jane@gmail.com" },
@@ -103,7 +110,7 @@ export const DashboardPage: React.FC = () => {
         <Table<UsersData>
           className={styles.dashboardTable}
           columns={columns}
-          dataSource={users}
+          dataSource={TABLE_USERS}
           size="middle"
           footer={() => "Сводка данных на: 2/15/26"}
         />

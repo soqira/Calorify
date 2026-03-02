@@ -1,4 +1,4 @@
-//import React, { useState } from "react";
+import { useState } from "react";
 import {
   Button,
   Input,
@@ -10,6 +10,7 @@ import {
 } from "antd";
 import { LockOutlined, UserOutlined, MailOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
+import { registerUser } from "../../../../entities/user/model/authService";
 import styles from "../RegistrationPage.module.css";
 
 type FieldType = {
@@ -23,10 +24,26 @@ type FieldType = {
 
 export const RegistrationPage = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
-  const onFinish = () => {
-    navigate("/dashboard");
-    message.success("Регистрация успешна!");
+  const onFinish = async (values: FieldType) => {
+    setLoading(true);
+
+    try {
+      await registerUser({
+        username: values.username,
+        email: values.email,
+        password: values.password,
+        gender: values.gender,
+      });
+
+      message.success("Регистрация успешна!");
+      navigate("/calories");
+    } catch {
+      message.error("Ошибка при регистрации. Попробуйте ещё раз.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -35,19 +52,18 @@ export const RegistrationPage = () => {
         theme={{
           token: {
             colorPrimary: "#5c9475",
-            colorText: "#5c9475",
+            colorText: "#009b46",
           },
         }}
       >
         <Form<FieldType>
           name="registration"
-          initialValues={{ remember: true }}
+          initialValues={{ gender: "male" }}
           className={styles.registration}
           onFinish={onFinish}
         >
           <h1>Регистрация</h1>
 
-          {/* email */}
           <Form.Item<FieldType>
             name="email"
             rules={[
@@ -57,7 +73,6 @@ export const RegistrationPage = () => {
             <Input prefix={<MailOutlined />} placeholder="Почта" />
           </Form.Item>
 
-          {/* username */}
           <Form.Item<FieldType>
             name="username"
             rules={[{ required: true, message: "Введите имя пользователя" }]}
@@ -65,7 +80,6 @@ export const RegistrationPage = () => {
             <Input prefix={<UserOutlined />} placeholder="Имя пользователя" />
           </Form.Item>
 
-          {/* password */}
           <Form.Item<FieldType>
             name="password"
             rules={[{ required: true, message: "Введите пароль!" }]}
@@ -78,16 +92,12 @@ export const RegistrationPage = () => {
             />
           </Form.Item>
 
-          {/* password confirmaton */}
           <Form.Item
             name="confirmpass"
             dependencies={["password"]}
             hasFeedback
             rules={[
-              {
-                required: true,
-                message: "Введите пароль!",
-              },
+              { required: true, message: "Повторите пароль!" },
               ({ getFieldValue }) => ({
                 validator(_, value) {
                   if (!value || getFieldValue("password") === value) {
@@ -105,14 +115,8 @@ export const RegistrationPage = () => {
             />
           </Form.Item>
 
-          <Form.Item
-            name="gender"
-            label="Пол"
-            rules={[{ message: "Please select gender!" }]}
-          >
+          <Form.Item name="gender">
             <Select
-              placeholder="select your gender"
-              defaultValue={"male"}
               options={[
                 { label: "Мужчина", value: "male" },
                 { label: "Женщина", value: "female" },
@@ -127,17 +131,18 @@ export const RegistrationPage = () => {
             rules={[
               {
                 validator: (_, value) =>
-                  value ? Promise.resolve() : Promise.reject(),
+                  value
+                    ? Promise.resolve()
+                    : Promise.reject(new Error("Необходимо согласие")),
               },
             ]}
           >
             <Checkbox>
               Я согласен с{" "}
               <a
+                style={{ color: "#5c9475" }}
                 href=""
-                onClick={() => {
-                  navigate("/unknown");
-                }}
+                onClick={() => navigate("/unknown")}
               >
                 правилами
               </a>{" "}
@@ -149,18 +154,17 @@ export const RegistrationPage = () => {
             <Button
               block
               type="primary"
-              style={{ marginBottom: 8 }}
               htmlType="submit"
+              loading={loading}
+              style={{ marginBottom: 8 }}
             >
-              Зарегестрироваться
+              Зарегистрироваться
             </Button>
 
             <a
-              href=""
               className={styles.linkText}
-              onClick={() => {
-                navigate("/login");
-              }}
+              href=""
+              onClick={() => navigate("/")}
             >
               Уже есть аккаунт?
             </a>

@@ -1,4 +1,6 @@
-//import React, { useState } from "react";
+// pages/Auth/LoginPage/ui/LoginPage.tsx
+
+import { useState } from "react";
 import {
   Button,
   Input,
@@ -10,6 +12,7 @@ import {
 } from "antd";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
+import { loginUser } from "../../../../entities/user/model/authService";
 import styles from "../LoginPage.module.css";
 
 type FieldType = {
@@ -20,15 +23,25 @@ type FieldType = {
 
 export const LoginPage = () => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
-  const onFinish = (values: FieldType) => {
-    const { email, password } = values;
+  const onFinish = async (values: FieldType) => {
+    setLoading(true);
 
-    if (email === "blamemyself@gmail.com" && password === "1234") {
+    try {
+      await loginUser({
+        email: values.email,
+        password: values.password,
+      });
+
       message.success("Вход успешен!");
-      navigate("/dashboard");
-    } else {
-      message.error("Неверное имя пользователя или пароль");
+      navigate("/calories");
+    } catch (err) {
+      const errorText =
+        err instanceof Error ? err.message : "Неверный email или пароль";
+      message.error(errorText);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -49,6 +62,7 @@ export const LoginPage = () => {
           onFinish={onFinish}
         >
           <h1>Авторизация</h1>
+
           <Form.Item<FieldType>
             name="email"
             rules={[
@@ -79,11 +93,9 @@ export const LoginPage = () => {
                 <Checkbox>Запомнить меня</Checkbox>
               </Form.Item>
               <a
-                href=""
                 className={styles.linkText}
-                onClick={() => {
-                  navigate("/unknown");
-                }}
+                href=""
+                onClick={() => navigate("/unknown")}
               >
                 Забыли пароль?
               </a>
@@ -94,17 +106,16 @@ export const LoginPage = () => {
             <Button
               block
               type="primary"
-              style={{ marginBottom: 8 }}
               htmlType="submit"
+              loading={loading}
+              style={{ marginBottom: 8 }}
             >
               Войти
             </Button>
             <a
-              href=""
               className={styles.linkText}
-              onClick={() => {
-                navigate("/");
-              }}
+              href=""
+              onClick={() => navigate("/registration")}
             >
               Регистрация
             </a>
