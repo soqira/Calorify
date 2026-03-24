@@ -52,7 +52,7 @@
   height: 28px;
   border-radius: 50%;
   background: #ffffff;
-  color: #fff;
+  color: #254634;
   border: 2px solid #5a5a5a;
   cursor: pointer;
   display: flex;
@@ -181,7 +181,7 @@
 }
 
 .saveBtn {
-  background: #5c9475;
+  color: #254634;
   border-color: #5c9475;
 }
 

@@ -1,5 +1,3 @@
-// pages/Auth/LoginPage/ui/LoginPage.tsx
-
 import { useState } from "react";
 import {
   Button,

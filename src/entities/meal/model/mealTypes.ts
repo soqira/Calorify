@@ -17,6 +17,14 @@ export interface MealEntry {
   photoUrl: string | null;
 }
 
+export type MealTag = 
+ | "dessert"
+ | "drink"
+ | "nosugar"
+ | "fastfood"
+ | "fried"
+ | "raw"
+
 export type MealType = "breakfast" | "lunch" | "dinner" | "snack";
 
 export const MEAL_TYPE_META: Record<

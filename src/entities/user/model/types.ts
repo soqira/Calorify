@@ -11,10 +11,7 @@ export interface UserProfile {
   avatarUrl: string | null;
   role: UserRole;
   createdAt: string;
-}
-
-export interface UserStats {
   daysInSystem: number;
-  totalEntries: number;
-  avgCaloriesPerDay: number;
+  totalEntries: number
+  averageCalories: number
 }

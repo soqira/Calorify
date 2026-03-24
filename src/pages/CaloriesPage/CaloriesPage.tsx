@@ -1,5 +1,3 @@
-// pages/CaloriesPage/ui/CaloriesPage.tsx
-
 import React, { useEffect, useState, useCallback } from "react";
 import {
   Button,
@@ -19,6 +17,7 @@ import {
   Image,
   ConfigProvider,
   Slider,
+  Space
 } from "antd";
 import type { UploadProps } from "antd";
 import {
@@ -40,7 +39,7 @@ import "dayjs/locale/ru";
 import {
   fetchProfile,
   updateProfile,
-} from "../../../entities/user/model/profileService";
+} from "../../entities/user/model/profileService.ts";
 import {
   getMealsByDate,
   getMealDays,
@@ -48,14 +47,14 @@ import {
   updateMeal,
   deleteMeal,
   uploadMealPhoto,
-} from "../../../entities/meal/model/mealService";
-import { MEAL_TYPE_META } from "../../../entities/meal/model/mealTypes.ts";
+} from "../../entities/meal/model/mealService.ts";
+import { MEAL_TYPE_META } from "../../entities/meal/model/mealTypes.ts";
 import type {
   MealEntry,
   MealType,
   FoodItem,
-} from "../../../entities/meal/model/mealTypes.ts";
-import styles from "../CaloriesPage.module.css";
+} from "../../entities/meal/model/mealTypes.ts";
+import styles from "./CaloriesPage.module.css";
 
 dayjs.locale("ru");
 
@@ -80,32 +79,32 @@ function formatSidebarDate(dateStr: string) {
   return { top: d.format("D MMMM"), bottom: d.format("dddd"), isToday: false };
 }
 
-// const MEAL_TAGS = [
-//   {
-//     label: "Десерт",
-//     value: "yummu",
-//   },
-//   {
-//     label: "Напиток",
-//     value: "drink",
-//   },
-//   {
-//     label: "Без сахара",
-//     value: "nosugar",
-//   },
-//   {
-//     label: "Фастфуд",
-//     value: "fastfood",
-//   },
-//   {
-//     label: "Жаренное",
-//     value: "fried",
-//   },
-//   {
-//     label: "Сырое",
-//     value: "wet",
-//   },
-// ];
+const MEAL_TAGS = [
+  {
+    label: "Десерт",
+    value: "dessert",
+  },
+  {
+    label: "Напиток",
+    value: "drink",
+  },
+  {
+    label: "Без сахара",
+    value: "nosugar",
+  },
+  {
+    label: "Фастфуд",
+    value: "fastfood",
+  },
+  {
+    label: "Жаренное",
+    value: "fried",
+  },
+  {
+    label: "Сырое",
+    value: "raw",
+  },
+];
 
 export const CaloriesPage: React.FC = () => {
   const [form] = Form.useForm<MealFormValues>();
@@ -114,6 +113,7 @@ export const CaloriesPage: React.FC = () => {
   const [mealDays, setMealDays] = useState<string[]>([]);
   const [calorieGoal, setCalorieGoal] = useState(0);
   const [userId, setUserId] = useState("1");
+  const [tags, setTags] = useState<string[]>([]);
 
   const [selectedDate, setSelectedDate] = useState(
     dayjs().format("YYYY-MM-DD"),
@@ -159,11 +159,12 @@ export const CaloriesPage: React.FC = () => {
       loadFeed(p.id, selectedDate);
       loadWater(p.id, selectedDate);
     });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     if (!userId) return;
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+     
     loadFeed(userId, selectedDate);
     loadWater(userId, selectedDate);
   }, [selectedDate, userId, loadFeed, loadWater]);
@@ -252,6 +253,7 @@ export const CaloriesPage: React.FC = () => {
         foods,
         date: selectedDate,
         photoUrl: pendingPhoto,
+        // tags: tags,
       });
       setMeals((prev) => [...prev, created]);
       setMealDays((prev) =>
@@ -300,6 +302,7 @@ export const CaloriesPage: React.FC = () => {
         theme={{
           token: {
             colorPrimary: "#5c9475",
+            motion: false
             //colorText: "#5c9475",
           },
         }}
@@ -449,7 +452,7 @@ export const CaloriesPage: React.FC = () => {
                         src={meal.photoUrl}
                         alt="Фото"
                         className={styles.mealPhoto}
-                        preview={{ mask: "Посмотреть" }}
+                        preview={{ mask: { blur: true} }}
                       />
                     )}
 
@@ -502,16 +505,17 @@ export const CaloriesPage: React.FC = () => {
 
                       {/* TAGS */}
 
-                      {/* <Select
+                      <Select
                         mode="multiple"
                         className={styles.mealTags}
                         placeholder="Тэги"
-                        onChange={(value) => {}}
+                        value={tags}
+                        onChange={(value) => { setTags(value)} }
                         options={MEAL_TAGS}
                         optionRender={(option) => (
                           <Space>{`${option.data.label}`}</Space>
                         )}
-                      /> */}
+                      />
 
                       <ul className={styles.foodList}>
                         {meal.foods.map((food) => (

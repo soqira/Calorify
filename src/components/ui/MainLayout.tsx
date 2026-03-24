@@ -1,7 +1,5 @@
-// shared/widgets/MainLayout/MainLayout.tsx
-
 import React, { useEffect, useState } from "react";
-import { Layout, Avatar, Dropdown, Typography, Badge } from "antd";
+import { Layout, Avatar, Dropdown, Typography, Badge, Tooltip } from "antd";
 import type { MenuProps } from "antd";
 import { useNavigate, useLocation } from "react-router-dom";
 import {
@@ -20,15 +18,10 @@ const { Text } = Typography;
 
 interface MainLayoutProps {
   children: React.ReactNode;
+  role: "admin" | "user";
 }
 
 const NAV_LINKS = [
-  // {
-  //   label: "Калории",
-  //   path: "/calories",
-  //   icon: <FireOutlined />,
-  // },
-
   {
     label: "Калькулятор",
     path: "/unknown",
@@ -52,12 +45,35 @@ const NAV_LINKS = [
     adminOnly: true,
   },
 ];
+const NAV_ICONS = [
+  {
+    value: "Калькулятор",
+    path: "/unknown",
+    icon: <ExperimentOutlined />,
+  },
+  {
+    value: "Мои продукты",
+    path: "/unknown",
+    icon: <PieChartOutlined />,
+  },
+  {
+    value: "Dashboard",
+    path: "/dashboard",
+    icon: <DashboardOutlined />,
+    adminOnly: true,
+  },
+  {
+    value: "CLRF PANEL",
+    path: "/clrfpanel",
+    icon: <DashboardOutlined />,
+    adminOnly: true,
+  },
+];
 
-const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
+
+const MainLayout: React.FC<MainLayoutProps> = ({ children, role }) => {
   const navigate = useNavigate();
   const location = useLocation();
-
-  const [role, setRole] = useState<"admin" | "user">("user");
   const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
   const [username, setUsername] = useState("Пользователь");
 
@@ -65,7 +81,6 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
     fetchProfile().then((p) => {
       setAvatarUrl(p.avatarUrl);
       setUsername(p.username);
-      setRole(p.role);
     });
   }, []);
 
@@ -75,6 +90,12 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   };
 
   const userMenuItems: MenuProps["items"] = [
+    {
+      key: "username",
+      label: username,
+      disabled: true,
+    },
+    {type: "divider"},
     {
       key: "profile",
       icon: <UserOutlined />,
@@ -101,11 +122,23 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
           </div>
 
           {/* навигация */}
+          <nav className={styles.navIcons}>
+            {NAV_ICONS.filter(link => !link.adminOnly || role === "admin").map(link => (
+              <Tooltip title={link.value} placement="bottom">
+                <button
+                  className={`${styles.navIcon} ${
+                    location.pathname === link.path ? styles.navIconActive : ""
+                  }`}
+                  onClick={() => navigate(link.path)}
+                >
+                  {link.icon}
+                </button>
+              </Tooltip>
+            ))}
+          </nav>
+
           <nav className={styles.nav}>
-            {NAV_LINKS.filter((link) => {
-              if (link.adminOnly && role !== "admin") return false;
-              return true;
-            }).map((link) => (
+            {NAV_LINKS.filter(link => !link.adminOnly || role === "admin").map(link => (
               <button
                 key={link.path}
                 className={`${styles.navLink} ${
@@ -122,7 +155,8 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
           <Dropdown
             menu={{ items: userMenuItems }}
             placement="bottomRight"
-            trigger={["click"]}
+            trigger={["hover"]}
+            className={styles.dropdown}
           >
             <div className={styles.userArea}>
               <Badge dot count="99999" color={"green"} status="processing">

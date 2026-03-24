@@ -330,7 +330,6 @@ html {
   gap: 15px;
   overflow-y: auto;
   scrollbar-width: none;
-  height: 900px;
 }
 
 /* day + addbtn */
@@ -442,7 +441,7 @@ html {
 }
 
 .mealCard:hover {
-  box-shadow: 0 4px 18px rgba(92, 148, 117, 0.14);
+  /* box-shadow: 0 4px 18px rgba(92, 148, 117, 0.14); */
   transform: translateY(-1px);
 }
 
@@ -450,6 +449,9 @@ html {
   width: 100%;
   height: 100%;
   object-fit: fill;
+}
+.mealPhoto:hover {
+  filter: brightness(0.95);
 }
 
 .mealBody {
@@ -686,6 +688,6 @@ html {
   }
   .main {
     grid-row: 3;
-    margin-top: 15px;
+    margin: 15px 0px;
   }
 }

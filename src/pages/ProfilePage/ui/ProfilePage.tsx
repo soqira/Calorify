@@ -16,7 +16,6 @@ import {
 } from "antd";
 import {
   UserOutlined,
-  EditOutlined,
   SaveOutlined,
   CameraOutlined,
   CalendarOutlined,
@@ -26,8 +25,7 @@ import {
 import type { UploadProps } from "antd";
 import dayjs from "dayjs";
 import type {
-  UserProfile,
-  UserStats,
+  UserProfile
 } from "../../../entities/user/model/types";
 import {
   fetchProfile,
@@ -36,11 +34,10 @@ import {
 } from "../../../entities/user/model/profileService";
 import styles from "../ProfilePage.module.css";
 
-const USER_STATS_DEFAULT: UserStats = {
-  daysInSystem: 0,
-  totalEntries: 0,
-  avgCaloriesPerDay: 0,
-};
+interface ProfilePageProps {
+  role: "admin" | "user";
+  setRole: (role: "admin" | "user") => void;
+}
 
 const GENDER_OPTIONS = [
   { label: "Мужчина", value: "male" },
@@ -53,15 +50,23 @@ const ROLE_LABELS: Record<string, { label: string; color: string }> = {
   user: { label: "Пользователь", color: "green" },
 };
 
-export const ProfilePage: React.FC = () => {
+
+
+export const ProfilePage: React.FC<ProfilePageProps> = ({ role, setRole }) => {
   const [form] = Form.useForm();
 
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [isEditing, setIsEditing] = useState(false);
   const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
-  const [isAdmin, setIsAdmin] = useState(false);
+
+  const stats = {
+    daysInSystem: profile?.createdAt
+    ? dayjs().diff(dayjs(profile.createdAt), "day") 
+    : 10,
+    totalEntries: profile?.totalEntries ?? 0,
+    averageCalories: profile?.averageCalories ?? 0
+  }
 
   useEffect(() => {
     fetchProfile().then((data) => {
@@ -76,7 +81,7 @@ export const ProfilePage: React.FC = () => {
 
       setLoading(false);
     });
-  }, []);
+  }, [form]);
 
   const handleSave = async () => {
     const values = await form.validateFields().catch(() => {
@@ -90,27 +95,13 @@ export const ProfilePage: React.FC = () => {
 
     const updated = await updateProfile({
       ...values,
-      birthDate: values.birthDate
-        ? values.birthDate.format("YYYY-MM-DD")
-        : profile?.birthDate,
+      birthDate: values.birthDate,
       avatarUrl,
     });
 
     setProfile(updated);
-    setIsEditing(false);
     setSaving(false);
     message.success("Профиль сохранён!");
-  };
-
-  const handleCancel = () => {
-    if (!profile) return;
-    form.setFieldsValue({
-      ...profile,
-      birthDate: profile.birthDate ? dayjs(profile.birthDate) : null,
-    });
-
-    setAvatarUrl(profile.avatarUrl);
-    setIsEditing(false);
   };
 
   const uploadProps: UploadProps = {
@@ -128,7 +119,8 @@ export const ProfilePage: React.FC = () => {
 
       const base64 = await uploadAvatar(file);
       setAvatarUrl(base64);
-      message.success("Фото загружено! Не забудьте сохранить.");
+      handleSave()
+      message.success("Фото загружено. Профиль обновлен");
 
       return false;
     },
@@ -145,10 +137,13 @@ export const ProfilePage: React.FC = () => {
   const roleInfo = ROLE_LABELS[profile?.role ?? "admin"];
 
   const handleAdminChange = async (checked: boolean) => {
-    setIsAdmin(checked);
-    handleSave();
-    await updateProfile({
-      role: checked ? "admin" : "user",
+    const newRole = checked ? "admin" : "user";
+    setRole(newRole);
+
+    setProfile((prev) => prev ? { ...prev, role: newRole } : prev);
+
+    await updateProfile({ 
+      role: newRole,
     });
   };
 
@@ -156,6 +151,14 @@ export const ProfilePage: React.FC = () => {
     <div className={styles.page}>
       <ConfigProvider
         theme={{
+          components: {
+            Button: {
+              colorPrimaryBgHover: "#5c9475",
+              colorPrimary: "#f6f6f6",
+              colorPrimaryActive: "#2a94308f"
+
+            }
+          },
           token: {
             colorPrimary: "#5c9475",
             //colorText: "#5c9475",
@@ -187,8 +190,8 @@ export const ProfilePage: React.FC = () => {
 
           <Switch
             className={styles.adminSwitch}
-            checked={isAdmin}
             onChange={handleAdminChange}
+            checked={role=== "admin"}
             unCheckedChildren="User"
             checkedChildren="Admin"
           />
@@ -202,7 +205,7 @@ export const ProfilePage: React.FC = () => {
               </span>
               <div>
                 <div className={styles.statValue}>
-                  {USER_STATS_DEFAULT.daysInSystem}
+                  {stats.daysInSystem}
                 </div>
                 <div className={styles.statLabel}>дней в системе</div>
               </div>
@@ -213,7 +216,7 @@ export const ProfilePage: React.FC = () => {
               </span>
               <div>
                 <div className={styles.statValue}>
-                  {USER_STATS_DEFAULT.totalEntries}
+                  {stats.totalEntries}
                 </div>
                 <div className={styles.statLabel}>записей</div>
               </div>
@@ -224,7 +227,7 @@ export const ProfilePage: React.FC = () => {
               </span>
               <div>
                 <div className={styles.statValue}>
-                  {USER_STATS_DEFAULT.avgCaloriesPerDay}
+                  {stats.averageCalories}
                 </div>
                 <div className={styles.statLabel}>ккал / день</div>
               </div>
@@ -244,18 +247,8 @@ export const ProfilePage: React.FC = () => {
         {/* карточка справа */}
         <div className={styles.formSection}>
           <div className={styles.formHeader}>
-            <h2 className={styles.formTitle}>Личные данные</h2>
-            {!isEditing ? (
-              <Button
-                icon={<EditOutlined />}
-                onClick={() => setIsEditing(true)}
-                className={styles.editBtn}
-              >
-                Редактировать
-              </Button>
-            ) : (
+            <h2 className={styles.formTitle}>Личные данные</h2>            
               <div className={styles.formActions}>
-                <Button onClick={handleCancel}>Отменить</Button>
                 <Button
                   type="primary"
                   icon={<SaveOutlined />}
@@ -266,19 +259,21 @@ export const ProfilePage: React.FC = () => {
                   Сохранить
                 </Button>
               </div>
-            )}
+            
           </div>
 
           <Form
+            onFinish={handleSave}
             form={form}
             layout="vertical"
-            disabled={!isEditing}
+            // disabled={!isEditing}
             className={styles.form}
           >
             <div className={styles.formGrid}>
               <Form.Item
                 name="username"
                 label="Имя пользователя"
+                
                 rules={[
                   {
                     required: true,

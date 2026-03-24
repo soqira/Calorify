@@ -26,6 +26,9 @@ export async function registerUser(data: RegisterData): Promise<UserProfile> {
     avatarUrl: null,
     role: "user",
     createdAt: new Date().toISOString(),
+    daysInSystem: 10,
+    totalEntries: 0,
+    averageCalories: 0
   };
 
   await updateProfile(newProfile);

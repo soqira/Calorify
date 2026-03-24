@@ -1,0 +1,95 @@
+.page {
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  height: 100%;
+  background: #f5f7f5;
+}
+
+.header {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0;
+}
+
+.count {
+  font-size: 13px;
+  color: #9ca3af;
+}
+
+.search {
+  max-width: 320px;
+}
+
+/* таблица */
+.tableWrap {
+  background: #ffffff;
+  border: 1px solid #e8ede9;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.tableWrap :global(.ant-table-thead > tr > th) {
+  background: #f8faf8 !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  color: #9ca3af !important;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.tableWrap :global(.ant-table-tbody > tr:hover > td) {
+  background: #eaf4ee !important;
+}
+
+.tableWrap :global(.ant-pagination) {
+  padding: 10px 16px !important;
+  margin: 0 !important;
+  border-top: 1px solid #e8ede9;
+}
+
+/* ячейка пользователя */
+.userCell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.avatar {
+  background: #5c9475 !important;
+  flex-shrink: 0;
+}
+
+.userName {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.userEmail {
+  font-size: 11px;
+  color: #9ca3af;
+}
+
+/* кнопки */
+.actionBtn {
+  color: #9ca3af !important;
+}
+
+.actionBtn:hover {
+  color: #5c9475 !important;
+  background: #eaf4ee !important;
+}
+
+.saveBtn {
+  background: #5c9475 !important;
+  border-color: #5c9475 !important;
+}

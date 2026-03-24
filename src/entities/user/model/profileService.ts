@@ -12,6 +12,9 @@ const DEFAULT_PROFILE: UserProfile = {
   avatarUrl: null,
   role: "user",
   createdAt: new Date().toISOString(),
+  daysInSystem: 10,
+  totalEntries: 0,
+  averageCalories: 0
 };
 
 export async function fetchProfile(): Promise<UserProfile> {

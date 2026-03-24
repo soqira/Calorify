@@ -1,10 +1,10 @@
 // Будущие endpoints:
-//   GET    /api/meals?date=YYYY-MM-DD   → getMealsByDate()
-//   GET    /api/meals/days              → getMealDays()
-//   POST   /api/meals                   → createMeal()
-//   PUT    /api/meals/:id               → updateMeal()
-//   DELETE /api/meals/:id               → deleteMeal()
-//   POST   /api/meals/:id/photo         → uploadMealPhoto()
+//   GET /api/meals?date=YYYY-MM-DD → getMealsByDate()
+//   GET /api/meals/days → getMealDays()
+//   POST /api/meals → createMeal()
+//   PUT /api/meals/:id → updateMeal()
+//   DELETE /api/meals/:id → deleteMeal()
+//   POST /api/meals/:id/photo → uploadMealPhoto()
 
 import type { MealEntry, CreateMealDTO } from "./mealTypes";
 
