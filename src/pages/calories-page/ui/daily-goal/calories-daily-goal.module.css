@@ -1,0 +1,92 @@
+@import "../../../../app/App.css";
+
+.calories_daily_goal_widget {
+  background: var(--bg-page);
+  border: 1px solid var(--green-border);
+  border-radius: 12px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.calories_daily_goal_header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--green-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.calories_daily_goal_icon {
+  color: var(--green-primary);
+  font-size: 13px;
+}
+
+.calories_daily_goal_title{
+
+}
+
+.calories_daily_goal_edit_row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.calories_daily_goal_input {
+  flex: 1;
+  font-size: 14px;
+}
+
+.calories_daily_goal_edit_icon {
+  font-size: 12px;
+  color: var(--text-muted);
+  opacity: 0.8;
+}
+
+.calories_daily_goal_save_button {
+  background: var(--green-primary);
+  border-color: var(--green-primary);
+}
+
+.calories_daily_goal_display {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 8px;
+  transition: background 0.15s;
+}
+
+.calories_daily_goal_display:hover {
+  background: var(--green-light);
+}
+
+.calories_daily_goal_value {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--green-dark);
+  line-height: 1;
+}
+
+.calories_daily_goal_unit {
+  font-size: 11px;
+  color: var(--text-muted);
+  flex: 1;
+}
+
+.calories_daily_goal_progress {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.calories_daily_goal_progress_label {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-align: center;
+}

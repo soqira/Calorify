@@ -1,0 +1,68 @@
+@import "../../../../app/App.css";
+
+.calories_history_header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 18px 16px 12px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--green-border);
+}
+
+.calories_history_header_icon {
+  color: var(--green-primary);
+  font-size: 14px;
+}
+
+.calories_history_item_spin {
+  display: flex;
+  justify-content: center;
+  padding: 24px;
+}
+
+.calories_history_list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.calories_history_day_item {
+  padding: 10px 16px;
+  cursor: pointer;
+  border-left: 3px solid transparent;
+  transition: background 0.15s;
+  display: flex;
+  
+  flex-direction: column;
+}
+
+.calories_history_day_item:hover {
+  background: var(--green-light);
+}
+
+.calories_history_day_item_active {
+  background: var(--green-light);
+  border-left-color: var(--green-primary);
+}
+
+.calories_history_day_item_content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--green-dark);
+}
+
+.calories_history_today_badge {
+  font-size: 9px;
+  font-weight: 700;
+  background: var(--green-primary);
+  color: #fff;
+  padding: 1px 6px;
+  border-radius: 20px;
+}

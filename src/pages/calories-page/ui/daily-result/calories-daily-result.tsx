@@ -1,0 +1,48 @@
+import React from "react";
+import styles from "./calories-daily-result.module.css";
+import { Progress } from "antd";
+import { FireOutlined } from "@ant-design/icons";
+import { calculateMealStats } from "../../lib/calories-daily-result.util.ts";
+import type { CaloriesDailyResultProps } from "../../interfaces/calories-daily-result.interface.ts";
+
+export const CaloriesDailyResult: React.FC<CaloriesDailyResultProps> = ({
+  meals,
+}) => {
+  const stats = calculateMealStats(meals);
+
+  return (
+    <div className={styles.widget}>
+      <div className={styles.widgetHeader}>
+        <FireOutlined className={styles.widgetIcon} />
+        <span className={styles.widgetTitle}>По приёмам</span>
+      </div>
+
+      {stats.length === 0 ? (
+        <p className={styles.widgetEmpty}>Нет записей</p>
+      ) : (
+        <ul className={styles.mealTypeList}>
+          {stats.map((item) => (
+            <li key={item.type} className={styles.mealTypeItem}>
+              <div className={styles.mealTypeRow}>
+                <span>{item.label}</span>
+                <span className={styles.mealTypeKcal}>
+                  {item.calories} ккал
+                </span>
+              </div>
+
+              <Progress
+                percent={item.percent}
+                strokeColor={item.color}
+                railColor="#d6d6d6"
+                showInfo={false}
+                strokeWidth={5}
+              />
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+};
+
+export default CaloriesDailyResult;

@@ -1,0 +1,25 @@
+@import "../../../../app/App.css";
+
+.calories_feed_spin_wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 60px 0;
+}
+
+.calories_feed_no_data {
+  padding: 180px 0;
+}
+
+.calories_feed_add_button {
+  border-color: var(--green-primary);
+  flex-shrink: 0;
+}
+
+.calories_feed_container {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  /* background-color: var(--green-primary); */
+  border-radius: var(--radius-card);
+  padding: 0 5px;
+}

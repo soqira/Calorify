@@ -15,15 +15,22 @@ export interface MealEntry {
   date: string;
   createdAt: string;
   photoUrl: string | null;
+  mealTags: MealTag[];
 }
 
-export type MealTag = 
- | "dessert"
- | "drink"
- | "nosugar"
- | "fastfood"
- | "fried"
- | "raw"
+export interface MealFormValues {
+  type: MealType;
+  note: string;
+  foods: { name: string; calories: number; weight: number }[];
+}
+
+export type MealTag =
+  | "dessert"
+  | "drink"
+  | "nosugar"
+  | "fastfood"
+  | "fried"
+  | "raw";
 
 export type MealType = "breakfast" | "lunch" | "dinner" | "snack";
 
@@ -41,3 +48,35 @@ export type CreateMealDTO = Omit<
   MealEntry,
   "id" | "totalCalories" | "createdAt"
 >;
+
+export type MealTagOption = {
+  label: string;
+  value: MealTag;
+};
+
+export const MEAL_TAGS: MealTagOption[] = [
+  {
+    label: "Десерт",
+    value: "dessert",
+  },
+  {
+    label: "Напиток",
+    value: "drink",
+  },
+  {
+    label: "Без сахара",
+    value: "nosugar",
+  },
+  {
+    label: "Фастфуд",
+    value: "fastfood",
+  },
+  {
+    label: "Жаренное",
+    value: "fried",
+  },
+  {
+    label: "Сырое",
+    value: "raw",
+  },
+];

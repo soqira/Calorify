@@ -1,0 +1,32 @@
+@import '../../../../app/App.css';
+
+.calories_header_container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--green-border);
+  border-radius: var(--radius-card);
+  padding: 6px 10px;
+  align-items: center;
+}
+
+.calories_header_title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--green-dark);
+  margin: 0;
+}
+
+.calories_header_date {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin: 4px 0 0;
+  text-transform: capitalize;
+}
+
+.calories_header_add_button {
+  border-color: var(--green-primary);
+  flex-shrink: 0;
+}
