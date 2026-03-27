@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { message, ConfigProvider } from "antd";
-import dayjs from "dayjs";
-import "dayjs/locale/ru";
+
 import {
   fetchProfile,
   updateProfile,
@@ -12,16 +11,15 @@ import {
   updateMeal,
   deleteMeal,
 } from "../../entities/meal/model/mealService.ts";
-
 import type {
   MealEntry,
   MealTag,
 } from "../../entities/meal/model/mealTypes.ts";
 import { CaloriesFeed } from "./ui/feed/calories-feed.tsx";
-import { MealModal } from "../../shared/ui/meal-modal/meal-modal.tsx";
+import { MealModal } from "../../entities/meal/ui/meal-modal/meal-modal.tsx";
 import { useMealModal } from "../../entities/meal/hooks/useMealModal.ts";
 
-import styles from "./calories-page.module.css";
+import styles from "./calories.page.module.css";
 
 import CaloriesHeader from "./ui/header/calories-header.tsx";
 import CaloriesSummary from "./ui/summary/calories-summary.tsx";
@@ -29,7 +27,7 @@ import CaloriesHistory from "./ui/history/calories-history.tsx";
 import CaloriesDailyGoal from "./ui/daily-goal/calories-daily-goal.tsx";
 import CaloriesDailyResult from "./ui/daily-result/calories-daily-result.tsx";
 
-dayjs.locale("ru");
+import { DateUtils } from "../../shared/lib/date-utils/date-utils.util.ts";
 
 export const CaloriesPage: React.FC = () => {
   const [meals, setMeals] = useState<MealEntry[]>([]);
@@ -43,14 +41,14 @@ export const CaloriesPage: React.FC = () => {
   const [editingGoal, setEditingGoal] = useState(false);
   const [goalInput, setGoalInput] = useState<number>(0);
 
-  const [selectedDate, setSelectedDate] = useState(
-    dayjs().format("YYYY-MM-DD"),
+  const [selectedDate, setSelectedDate] = useState<string>(
+    DateUtils.getToday(),
   );
 
   const loadDays = useCallback(async (uid: string) => {
     setLoadingSide(true);
     const days = await getMealDays(uid);
-    const today = dayjs().format("YYYY-MM-DD");
+    const today = DateUtils.getToday();
     setMealDays(days.includes(today) ? days : [today, ...days]);
     setLoadingSide(false);
   }, []);
@@ -76,7 +74,7 @@ export const CaloriesPage: React.FC = () => {
     await deleteMeal(id);
     const remaining = meals.filter((m) => m.id !== id);
     setMeals(remaining);
-    const today = dayjs().format("YYYY-MM-DD");
+    const today = DateUtils.getToday();
     if (remaining.length === 0 && selectedDate !== today) {
       setMealDays((prev) => prev.filter((d) => d !== selectedDate));
       setSelectedDate(today);

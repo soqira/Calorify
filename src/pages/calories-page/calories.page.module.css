@@ -1,13 +1,4 @@
-@import '../../app/App.css'; 
-
-* {
-  font-family: Arial, Helvetica, sans-serif;
-  user-select: none;
-}
-
-html {
-  scrollbar-width: thin;
-}
+@import "../../index.css";
 
 .calorify_page_layout {
   display: grid;

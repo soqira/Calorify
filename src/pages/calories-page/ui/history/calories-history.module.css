@@ -1,4 +1,4 @@
-@import "../../../../app/App.css";
+@import "../../../../index.css";
 
 .calories_history_header {
   display: flex;
@@ -40,12 +40,12 @@
 }
 
 .calories_history_day_item:hover {
-  background: var(--green-light);
+  background: var(--green-border);
 }
 
 .calories_history_day_item_active {
   background: var(--green-light);
-  border-left-color: var(--green-primary);
+  /* border-left-color: var(--green-primary); */
 }
 
 .calories_history_day_item_content {

@@ -14,47 +14,52 @@ export const CaloriesSummary: React.FC<CaloriesSummaryProps> = ({
   );
 
   return (
-    <div className={styles.summary}>
-      <div className={styles.summaryNumbers}>
-        <div className={styles.summaryItem}>
+    <div className={styles.calories_summary}>
+      <div className={styles.calories_summaryNumbers}>
+        <div className={styles.calories_summaryItem}>
           <span
-            className={styles.summaryValue}
+            className={styles.calories_summaryValue}
             style={{ color: progressColor }}
           >
             {totalToday}
           </span>
-          <span className={styles.summaryLabel}>съедено ккал</span>
+          <span className={styles.calories_summaryLabel}>съедено ккал</span>
         </div>
-        <div className={styles.summaryDivider} />
-        <div className={styles.summaryItem}>
-          <span className={styles.summaryValue} style={{ color: "#9ca3af" }}>
+        <div className={styles.calories_summaryDivider} />
+        <div className={styles.calories_summaryItem}>
+          <span
+            className={styles.calories_summaryValue}
+            style={{ color: "#9ca3af" }}
+          >
             {calorieGoal}
           </span>
-          <span className={styles.summaryLabel}>цель ккал</span>
+          <span className={styles.calories_summaryLabel}>цель ккал</span>
         </div>
-        <div className={styles.summaryDivider} />
-        <div className={styles.summaryItem}>
+        <div className={styles.calories_summaryDivider} />
+        <div className={styles.calories_summaryItem}>
           <span
-            className={styles.summaryValue}
+            className={styles.calories_summaryValue}
             style={{
               color: totalToday > calorieGoal ? "#f5222d" : "#5c9475",
             }}
           >
             {Math.abs(calorieGoal - totalToday)}
           </span>
-          <span className={styles.summaryLabel}>
+          <span className={styles.calories_summaryLabel}>
             {totalToday > calorieGoal ? "перебор ккал" : "осталось ккал"}
           </span>
         </div>
       </div>
       <Tooltip title={`${progressPct}% дневной нормы`}>
-        <Progress
-          percent={progressPct}
-          strokeColor={progressColor}
-          railColor="#e2e2e2"
-          showInfo={false}
-          size={5}
-        />
+        <div className={styles.progress_wrapper}>
+          <Progress
+            percent={progressPct}
+            strokeColor={progressColor}
+            railColor="#e2e2e2"
+            showInfo={false}
+            strokeWidth={5}
+          />
+        </div>
       </Tooltip>
     </div>
   );

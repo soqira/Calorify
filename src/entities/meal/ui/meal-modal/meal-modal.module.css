@@ -1,23 +1,23 @@
-@import "../../../app/App.css";
+@import "../../../index.css";
 
-.shared_meal_modal_title {
+.meal_modal_title {
   font-size: 16px;
   font-weight: 600;
   color: var(--text-main);
 }
-.shared_meal_modal_okbtn {
+.meal_modal_okbtn {
   background: var(--green-primary);
   border-color: var(--green-primary);
 }
-.shared_meal_modal_okbtn:hover {
+.meal_modal_okbtn:hover {
   background: var(--green-dark);
   border-color: var(--green-dark);
 }
-.shared_meal_modal_form {
+.meal_modal_form {
   margin-top: 4px;
 }
 
-.shared_meal_modal_upload_wrapper {
+.meal_modal_upload_wrapper {
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -25,17 +25,17 @@
   width: 100%;
   height: 180px;
 }
-.shared_meal_modal_upload_wrapper :global(.ant-upload) {
+.meal_modal_upload_wrapper :global(.ant-upload) {
     width: 100%;
     height: 100px;
 }
 
-.shared_meal_modal_upload_wrapper :global(.ant-upload-select) {
+.meal_modal_upload_wrapper :global(.ant-upload-select) {
   width: 100%;
   height: 100%;
 }
 
-.shared_meal_modal_photo_upload_area {
+.meal_modal_photo_upload_area {
   border-radius: 10px;
   height: 180px;
   width: 100%; /* 👈 добавь */
@@ -44,7 +44,7 @@
   justify-content: center;
 }
 
-.shared_meal_modal_upload_placeholder {
+.meal_modal_upload_placeholder {
   width: 100%;
   height: 100%;
   display: flex;
@@ -64,27 +64,27 @@
     background 0.15s;
 }
 
-.shared_meal_modal_upload_placeholder:hover {
+.meal_modal_upload_placeholder:hover {
 border-color: var(--green-primary);
   background: var(--green-light);
   color: var(--green-primary);
 }
 
-.shared_meal_modal_upload_icon {
+.meal_modal_upload_icon {
   font-size: 24px;
   color: var(--green-primary);
 }
-.shared_meal_modal_upload_hint {
+.meal_modal_upload_hint {
   font-size: 11px;
   color: var(--text-muted);
 }
 
-.shared_meal_modal_photo_preview_wrapper {
+.meal_modal_photo_preview_wrapper {
   position: relative;
   width: 100%;
 }
 
-.shared_meal_modal_photo_preview {
+.meal_modal_photo_preview {
   width: 100%;
   height: 180px;
   object-fit: cover;
@@ -93,31 +93,31 @@ border-color: var(--green-primary);
   display: block;
 }
 
-.shared_meal_modal_photo_remove_button {
+.meal_modal_photo_remove_button {
   position: absolute;
   top: 8px;
   right: 8px;
   opacity: 0.9;
 }
 
-.share_meal_modal_foodListHeader {
+.meal_modal_foodListHeader {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 8px;
 }
 
-.share_meal_modal_foodListLabel {
+.meal_modal_foodListLabel {
   font-size: 14px;
   font-weight: 500;
   color: var(--text-main);
 }
-.share_meal_modal_addFoodBtn {
+.meal_modal_addFoodBtn {
   color: var(--green-primary);
   padding: 0;
 }
 
-.share_meal_modal_foodRow {
+.meal_modal_foodRow {
   display: flex;
   align-items: center;
   width: 100%;
@@ -125,9 +125,9 @@ border-color: var(--green-primary);
   margin-bottom: 8px;
 }
 
-.share_meal_modal_foodNameInput {
+.meal_modal_foodNameInput {
   flex: 1;
 }
-.share_meal_modal_foodNumberInput {
+.meal_modal_foodNumberInput {
   width: 120px;
 }

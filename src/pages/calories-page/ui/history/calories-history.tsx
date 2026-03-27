@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./calories-history.module.css";
 import { CalendarOutlined } from "@ant-design/icons";
-import { formatDate } from "../../lib/calories-date.util";
+import { DateUtils } from "../../../../shared/lib/date-utils/date-utils.util";
 import { Spin } from "antd";
 import type { HistoryProps } from "../../interfaces/calories-date.interface";
 
@@ -25,7 +25,7 @@ export const CaloriesHistory: React.FC<HistoryProps> = ({
           </div>
         ) : (
           mealDays.map((day) => {
-            const { bottom, isToday } = formatDate(day);
+            const { bottom, isToday } = DateUtils.formatDate(day);
             return (
               <li
                 key={day}

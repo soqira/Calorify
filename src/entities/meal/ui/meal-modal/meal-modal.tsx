@@ -16,8 +16,8 @@ import {
   CameraOutlined,
 } from "@ant-design/icons";
 
-import { MEAL_TYPE_META } from "../../../entities/meal/model/mealTypes";
-import { uploadMealPhoto } from "../../../entities/meal/model/mealService";
+import { MEAL_TYPE_META } from "../../model/mealTypes";
+import { uploadMealPhoto } from "../../model/mealService";
 
 import styles from "./meal-modal.module.css";
 import type { MealModalProps } from "./meal-modal.interface";
@@ -71,7 +71,7 @@ export const MealModal: React.FC<MealModalProps> = ({
   return (
     <Modal
       title={
-        <span className={styles.shared_meal_modal_title}>
+        <span className={styles.meal_modal_title}>
           {editingMeal ? "Редактирование приема пищи" : "Новый прием пищи"}
         </span>
       }
@@ -81,14 +81,14 @@ export const MealModal: React.FC<MealModalProps> = ({
       okText={editingMeal ? "Сохранить" : "Добавить"}
       cancelText="Отмена"
       confirmLoading={loading}
-      okButtonProps={{ className: styles.shared_meal_modal_okbtn }}
+      okButtonProps={{ className: styles.meal_modal_okbtn }}
       width={580}
       destroyOnClose
     >
       <Form
         form={form}
         layout="vertical"
-        className={styles.shared_meal_modal_form}
+        className={styles.meal_modal_form}
         onFinish={onSubmit}
         initialValues={values}
       >
@@ -103,18 +103,18 @@ export const MealModal: React.FC<MealModalProps> = ({
 
         {/* photo upload */}
         <Form.Item label="Фото">
-          <div className={styles.shared_meal_modal_photo_upload_area}>
+          <div className={styles.meal_modal_photo_upload_area}>
             {pendingPhoto ? (
-              <div className={styles.shared_meal_modal_photo_preview_wrapper}>
+              <div className={styles.meal_modal_photo_preview_wrapper}>
                 <img
                   src={pendingPhoto}
                   alt="preview"
-                  className={styles.shared_meal_modal_photo_preview}
+                  className={styles.meal_modal_photo_preview}
                 />
                 <Button
                   size="small"
                   danger
-                  className={styles.shared_meal_modal_photo_remove_button}
+                  className={styles.meal_modal_photo_remove_button}
                   onClick={() => setPendingPhoto(null)}
                 >
                   Удалить фото
@@ -123,14 +123,12 @@ export const MealModal: React.FC<MealModalProps> = ({
             ) : (
               <Upload
                 {...uploadProps}
-                className={styles.shared_meal_modal_upload_wrapper}
+                className={styles.meal_modal_upload_wrapper}
               >
-                <div className={styles.shared_meal_modal_upload_placeholder}>
-                  <CameraOutlined
-                    className={styles.shared_meal_modal_upload_icon}
-                  />
+                <div className={styles.meal_modal_upload_placeholder}>
+                  <CameraOutlined className={styles.meal_modal_upload_icon} />
                   <span>Загрузить фото</span>
-                  <span className={styles.shared_meal_modal_upload_hint}>
+                  <span className={styles.meal_modal_upload_hint}>
                     JPG, PNG до 5 МБ
                   </span>
                 </div>
@@ -143,8 +141,8 @@ export const MealModal: React.FC<MealModalProps> = ({
         <Form.List name="foods">
           {(fields, { add, remove }) => (
             <div>
-              <div className={styles.share_meal_modal_foodListHeader}>
-                <span className={styles.share_meal_modal_foodListLabel}>
+              <div className={styles.meal_modal_foodListHeader}>
+                <span className={styles.meal_modal_foodListLabel}>
                   Продукты / блюда
                 </span>
                 <Button
@@ -152,17 +150,14 @@ export const MealModal: React.FC<MealModalProps> = ({
                   size="small"
                   icon={<PlusCircleOutlined />}
                   onClick={() => add({ name: "", calories: 0, weight: 0 })}
-                  className={styles.share_meal_modal_addFoodBtn}
+                  className={styles.meal_modal_addFoodBtn}
                 >
                   Добавить продукт
                 </Button>
               </div>
 
               {fields.map((field) => (
-                <div
-                  key={field.key}
-                  className={styles.share_meal_modal_foodRow}
-                >
+                <div key={field.key} className={styles.meal_modal_foodRow}>
                   <Form.Item
                     name={[field.name, "name"]}
                     rules={[{ required: true, message: "Название" }]}
@@ -170,7 +165,7 @@ export const MealModal: React.FC<MealModalProps> = ({
                   >
                     <Input
                       placeholder="Название"
-                      className={styles.share_meal_modal_foodNameInput}
+                      className={styles.meal_modal_foodNameInput}
                     />
                   </Form.Item>
 
@@ -179,7 +174,7 @@ export const MealModal: React.FC<MealModalProps> = ({
                       min={0}
                       placeholder="0"
                       addonAfter="г"
-                      className={styles.share_meal_modal_foodNumberInput}
+                      className={styles.meal_modal_foodNumberInput}
                     />
                   </Form.Item>
 
@@ -192,7 +187,7 @@ export const MealModal: React.FC<MealModalProps> = ({
                       min={0}
                       placeholder="0"
                       addonAfter="ккал"
-                      className={styles.share_meal_modal_foodNumberInput}
+                      className={styles.meal_modal_foodNumberInput}
                     />
                   </Form.Item>
 

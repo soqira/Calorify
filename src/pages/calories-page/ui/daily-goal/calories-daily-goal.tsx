@@ -81,7 +81,7 @@ export const CaloriesDailyGoal: React.FC<CaloriesDailyGoalProps> = ({
           strokeColor={progressColor}
           railColor="#eaf4ee"
           showInfo={false}
-          size={6}
+          strokeWidth={6}
         />
         <span className={styles.calories_daily_goal_progress_label}>
           {progressPct}% от цели

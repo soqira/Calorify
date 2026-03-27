@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, ConfigProvider } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
-import { formatDate, formatFullDate } from "../../lib/calories-date.util";
+import { DateUtils } from "../../../../shared/lib/date-utils/date-utils.util";
 import styles from "./calories-header.module.css";
 
 interface CaloriesHeaderProps {
@@ -13,7 +13,7 @@ export const CaloriesHeader: React.FC<CaloriesHeaderProps> = ({
   selectedDate,
   openAdd,
 }) => {
-  const { top } = formatDate(selectedDate);
+  const { top } = DateUtils.formatDate(selectedDate);
 
   return (
     <div>
@@ -34,7 +34,7 @@ export const CaloriesHeader: React.FC<CaloriesHeaderProps> = ({
             <h1 className={styles.calories_header_title}>{top}</h1>
 
             <p className={styles.calories_header_date}>
-              {formatFullDate(selectedDate)}
+              {DateUtils.formatFullDate(selectedDate)}
             </p>
           </div>
           <Button

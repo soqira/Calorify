@@ -1,4 +1,6 @@
-.widget {
+@import "../../../../index.css";
+
+.calories_dailyResult_widgetContainer {
   background: var(--bg-page);
   border: 1px solid var(--green-border);
   border-radius: 12px;
@@ -8,7 +10,7 @@
   gap: 10px;
 }
 
-.widgetHeader {
+.calories_dailyResult_widgetHeader {
   display: flex;
   align-items: center;
   gap: 6px;
@@ -16,15 +18,15 @@
   font-weight: 700;
   color: var(--green-primary);
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.calories_dailyResult_5px;
 }
 
-.widgetIcon {
+.calories_dailyResult_widgetIcon {
   color: var(--green-primary);
   font-size: 13px;
 }
 
-.widgetEmpty {
+.calories_dailyResult_widgetEmpty {
   font-size: 12px;
   color: var(--text-muted);
   text-align: center;
@@ -32,7 +34,7 @@
   margin: 0;
 }
 
-.mealTypeList {
+.calories_dailyResult_mealTypeList {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -41,20 +43,20 @@
   gap: 8px;
 }
 
-.mealTypeItem {
+.calories_dailyResult_mealTypeItem {
   display: flex;
   flex-direction: column;
   gap: 3px;
 }
 
-.mealTypeRow {
+.calories_dailyResult_mealTypeRow {
   display: flex;
   justify-content: space-between;
   font-size: 12px;
   color: var(--text-secondary);
 }
 
-.mealTypeKcal {
+.calories_dailyResult_mealTypeKcal {
   font-weight: 600;
   color: var(--text-main);
 }

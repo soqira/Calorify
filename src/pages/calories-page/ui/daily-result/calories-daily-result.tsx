@@ -11,21 +11,26 @@ export const CaloriesDailyResult: React.FC<CaloriesDailyResultProps> = ({
   const stats = calculateMealStats(meals);
 
   return (
-    <div className={styles.widget}>
-      <div className={styles.widgetHeader}>
-        <FireOutlined className={styles.widgetIcon} />
-        <span className={styles.widgetTitle}>По приёмам</span>
+    <div className={styles.calories_dailyResult_widgetContainer}>
+      <div className={styles.calories_dailyResult_widgetHeader}>
+        <FireOutlined className={styles.calories_dailyResult_widgetIcon} />
+        <span className={styles.calories_dailyResult_widgetTitle}>
+          По приёмам
+        </span>
       </div>
 
       {stats.length === 0 ? (
-        <p className={styles.widgetEmpty}>Нет записей</p>
+        <p className={styles.calories_dailyResult_widgetEmpty}>Нет записей</p>
       ) : (
-        <ul className={styles.mealTypeList}>
+        <ul className={styles.calories_dailyResult_mealTypeList}>
           {stats.map((item) => (
-            <li key={item.type} className={styles.mealTypeItem}>
-              <div className={styles.mealTypeRow}>
+            <li
+              key={item.type}
+              className={styles.calories_dailyResult_mealTypeItem}
+            >
+              <div className={styles.calories_dailyResult_mealTypeRow}>
                 <span>{item.label}</span>
-                <span className={styles.mealTypeKcal}>
+                <span className={styles.calories_dailyResult_mealTypeKcal}>
                   {item.calories} ккал
                 </span>
               </div>

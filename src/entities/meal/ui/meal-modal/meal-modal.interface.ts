@@ -1,5 +1,5 @@
-import type { MealEntry } from "../../../entities/meal/model/mealTypes";
-import type { MealFormValues } from "../../../entities/meal/model/mealTypes";
+import type { MealEntry } from "../../model/mealTypes";
+import type { MealFormValues } from "../../model/mealTypes";
 
 export interface MealModalProps {
   open: boolean;

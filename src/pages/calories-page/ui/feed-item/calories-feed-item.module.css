@@ -1,4 +1,4 @@
-@import "../../../../app/App.css";
+@import "../../../../index.css";
 
 .calorify_feed_item_card {
   background: var(--bg-card);
